@@ -7,6 +7,7 @@ gem 'vimrunner'
 gem 'rspec'
 gem 'rake'
 gem 'faker'
+gem 'parallel_tests'
 
 # Automation of tests
 gem 'guard'
