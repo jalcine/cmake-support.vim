@@ -52,6 +52,7 @@ function! cmake#augroup#on_file_type(filetype)
   call cmake#buffer#set_options()
 
   if !exists('b:cmake_target')
+    call cmake#util#echo_msg('No target found for this buffer.')
     return
   endif
 
