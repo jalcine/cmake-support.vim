@@ -1,13 +1,15 @@
 require 'spec_helper'
 
 describe 'cmake#extension#syntastic' do
-  describe '#inject' do
-    before(:each) do
-      cmake.create_new
-      cmake.configure
-      vim.command 'call cmake#targets#cache()'
-    end
+  before(:each) do
+    plugin_directory = File.expand_path('../../', __FILE__)
+    vim.add_plugin(plugin_directory, 'spec/plugins/vim/syntastic')
+    cmake.create_new
+    cmake.configure
+    vim.command 'call cmake#targets#cache()'
+  end
 
+  describe '#inject' do
     context 'function existence' do
       it 'does exist when not called' do
         expect(function_exists? 'cmake#extension#syntastic#inject(args)').to eql(true)
