@@ -5,32 +5,32 @@
 " Website:          https://jalcine.github.io/cmake.vim
 " Version:          0.5.1
 
-" Public Function: cmake#buffer#has_project
+" Public Function: cmake#buffer#has_project()
 " Checks if the current buffer follows the following criteria:
-"   - Has either the 'cpp' or 'c' formats applied.
-"   - Does it exist in the file system.
-"   - Check if this entire session has a CMake project associated with it.
-" Returns: '1' if this current buffer relates to a CMake project. '0'
-" otherwise.
+"   - Checks if it currently exists in the file system.
+"   - Checks if this entire session has a CMake project associated with it.
+" Returns: '1' if this current buffer relates to a CMake project.
+" Returns: '0' if any of the former conditions are unsatisfied.
 func! cmake#buffer#has_project()
   let l:current_file = expand('%:p')
 
-  " Ensure that this matches the filetypes we work with.
+  " TODO: Remove this logic.
   if &l:ft != "cpp" && &l:ft != "c" && &l:ft != "cmake"
     return 0
   endif
 
-  " If this file hasn't been saved yet, don't bother (it happens).
   if !filereadable(l:current_file)
     return 0
   endif
 
-  " Pass it up the chain to the heavy-duty method.
   return cmake#util#has_project()
 endfunc
 
-" Public Function:
-" Returns:
+" Public Function: cmake#buffer_set_options()
+" Returns: Nothing.
+"
+" Populates the buffer's local options with metadata that can be reused by other
+" plugins and CMake itself.
 func! cmake#buffer#set_options()
   let l:current_file = expand('%:p:t')
 
